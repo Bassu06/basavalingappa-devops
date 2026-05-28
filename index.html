@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Basavalingappa | DevOps & Cloud Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #080c10;
+    --bg2: #0d1117;
+    --panel: #111820;
+    --border: #1e2d3d;
+    --accent: #00d4ff;
+    --accent2: #0af5a0;
+    --accent3: #ff6b35;
+    --text: #e6edf3;
+    --muted: #7d8590;
+    --mono: 'Space Mono', monospace;
+    --sans: 'Syne', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    overflow-x: hidden;
+  }
+
+  /* ── GRID BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 48px;
+    background: rgba(8,12,16,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 2px;
+  }
+
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 48px 80px;
+    z-index: 1;
+  }
+
+  .hero-inner { max-width: 900px; }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 3px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: var(--sans);
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    margin-bottom: 8px;
+  }
+
+  .name-accent { color: var(--accent); }
+
+  .hero-subtitle {
+    font-family: var(--sans);
+    font-size: clamp(18px, 3vw, 28px);
+    font-weight: 600;
+    color: var(--muted);
+    margin: 20px 0 32px;
+    line-height: 1.4;
+  }
+
+  .hero-subtitle span { color: var(--accent2); }
+
+  .hero-desc {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 580px;
+    line-height: 1.8;
+    margin-bottom: 48px;
+  }
+
+  .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: var(--accent);
+    color: #000;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: transparent;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border: 1px solid var(--accent);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(0,212,255,0.08); }
+
+  /* ── BADGES ── */
+  .badges {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+  .badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .badge.cert {
+    border-color: var(--accent2);
+    color: var(--accent2);
+  }
+
+  /* ── SECTION COMMON ── */
+  section { position: relative; z-index: 1; padding: 80px 48px; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: var(--sans);
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    margin-bottom: 48px;
+    letter-spacing: -1px;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--bg2); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+  }
+
+  .skill-card {
+    background: var(--panel);
+    padding: 28px;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .skill-card:hover::before { transform: scaleX(1); }
+  .skill-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-2px); }
+
+  .skill-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+  }
+  .skill-name {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .skill-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    background: rgba(0,212,255,0.07);
+    color: var(--accent);
+    border: 1px solid rgba(0,212,255,0.15);
+  }
+
+  /* ── LINUX SKILLS ── */
+  #linux { background: var(--bg); }
+
+  .linux-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+  }
+
+  .linux-item {
+    display: flex;
+    gap: 16px;
+    padding: 20px 24px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent2);
+    transition: background 0.2s;
+  }
+  .linux-item:hover { background: #151e28; }
+
+  .linux-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent2);
+    min-width: 24px;
+    padding-top: 2px;
+  }
+  .linux-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--bg2); }
+
+  .exp-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .exp-card::after {
+    content: 'CAPGEMINI';
+    position: absolute;
+    right: -20px; top: 20px;
+    font-family: var(--sans);
+    font-size: 80px;
+    font-weight: 800;
+    color: rgba(0,212,255,0.03);
+    letter-spacing: -2px;
+    pointer-events: none;
+  }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .exp-company {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .exp-date {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent2);
+    padding: 4px 12px;
+    border: 1px solid var(--accent2);
+  }
+  .exp-role {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+  }
+
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .exp-bullets li {
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+    color: #adbac7;
+    line-height: 1.6;
+  }
+  .exp-bullets li::before {
+    content: '▸';
+    color: var(--accent);
+    min-width: 14px;
+    margin-top: 1px;
+  }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--bg); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2px;
+  }
+
+  .proj-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 28px;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .proj-card:hover { border-color: rgba(255,107,53,0.4); transform: translateY(-3px); }
+
+  .proj-num {
+    font-family: var(--mono);
+    font-size: 40px;
+    font-weight: 700;
+    color: rgba(255,107,53,0.15);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .proj-title {
+    font-family: var(--sans);
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .proj-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .proj-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    background: rgba(255,107,53,0.07);
+    color: var(--accent3);
+    border: 1px solid rgba(255,107,53,0.2);
+  }
+  .proj-status {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 10px;
+    margin-bottom: 12px;
+    background: rgba(10,245,160,0.08);
+    color: var(--accent2);
+    border: 1px solid rgba(10,245,160,0.2);
+  }
+
+  /* ── CERTS ── */
+  #certifications { background: var(--bg2); }
+
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .cert-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cert-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent2);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .cert-card:hover::before { transform: scaleX(1); }
+
+  .cert-logo {
+    font-size: 32px;
+  }
+  .cert-name {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .cert-issuer {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent2);
+    letter-spacing: 1px;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--bg);
+    text-align: center;
+  }
+
+  .contact-inner { max-width: 600px; margin: 0 auto; }
+
+  .contact-email {
+    font-family: var(--mono);
+    font-size: clamp(14px, 2.5vw, 20px);
+    color: var(--accent);
+    margin: 32px 0;
+    word-break: break-all;
+  }
+
+  .contact-phone {
+    font-family: var(--mono);
+    font-size: 16px;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── TERMINAL BLINK ── */
+  .blink {
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+
+  @media (max-width: 600px) {
+    nav { padding: 14px 20px; }
+    .nav-links { gap: 16px; }
+    section { padding: 60px 20px; }
+    #hero { padding: 100px 20px 60px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">BASA_DEV<span class="blink">█</span></div>
+  <div class="nav-links">
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#certifications">Certs</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">AVAILABLE FOR OPPORTUNITIES</div>
+    <h1>BASAVA<br><span class="name-accent">LINGAPPA</span></h1>
+    <p class="hero-subtitle">
+      DevOps Engineer · Linux Administrator<br>
+      <span>Azure & AWS Cloud Engineer</span>
+    </p>
+    <p class="hero-desc">
+      AZ-204 & AWS CLF-C01 certified engineer with 2+ years at Capgemini.
+      Specializing in Linux server administration, CI/CD pipelines, cloud infrastructure,
+      and production application support. Building reliable, automated, scalable systems.
+    </p>
+    <div class="hero-cta">
+      <a href="./Basavalingappa_DevOps_Linux_Cloud_Resume.docx" class="btn-primary" download>
+        ↓ Download Resume
+      </a>
+      <a href="#contact" class="btn-secondary">Get In Touch →</a>
+    </div>
+    <div class="badges">
+      <span class="badge cert">AZ-204 CERTIFIED</span>
+      <span class="badge cert">AWS CLF-C01</span>
+      <span class="badge cert">OCP JAVA</span>
+      <span class="badge">2+ YRS EXPERIENCE</span>
+      <span class="badge">CAPGEMINI</span>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">// 01 TECHNICAL SKILLS</div>
+  <h2 class="section-title">What I Work With</h2>
+  <div class="skills-grid">
+
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🐧</div>
+      <div class="skill-name">Linux Administration</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;">RHEL, CentOS, Ubuntu — user management, SSH hardening, LVM, networking, services</p>
+      <div class="skill-tags">
+        <span class="skill-tag">RHEL</span>
+        <span class="skill-tag">CentOS</span>
+        <span class="skill-tag">systemctl</span>
+        <span class="skill-tag">LVM</span>
+        <span class="skill-tag">firewalld</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-icon">☁️</div>
+      <div class="skill-name">Azure Cloud (AZ-204)</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;">App Services, Azure Functions, Storage, Cosmos DB, Service Bus — cloud-native deployments</p>
+      <div class="skill-tags">
+        <span class="skill-tag">App Services</span>
+        <span class="skill-tag">Functions</span>
+        <span class="skill-tag">Cosmos DB</span>
+        <span class="skill-tag">Service Bus</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-name">DevOps & Automation</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;">CI/CD pipelines, Shell scripting, Git, REST APIs, infrastructure automation</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Jenkins</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">Ansible</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">Bash</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Monitoring & Logging</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;">Application performance monitoring, log aggregation, incident triage and root-cause analysis</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Dynatrace</span>
+        <span class="skill-tag">Elasticsearch</span>
+        <span class="skill-tag">Logstash</span>
+        <span class="skill-tag">Kibana</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🗄️</div>
+      <div class="skill-name">Databases</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;">SQL query design and optimization for critical business processes, NoSQL basics</p>
+      <div class="skill-tags">
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">SQL Server</span>
+        <span class="skill-tag">NoSQL</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-icon">☕</div>
+      <div class="skill-name">Development</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;">Backend application development, REST API integration, production support and SLA management</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">Shell/Bash</span>
+        <span class="skill-tag">REST API</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LINUX SKILLS -->
+<section id="linux">
+  <div class="section-label">// 02 LINUX EXPERTISE</div>
+  <h2 class="section-title">Linux Administration Skills</h2>
+  <div class="linux-grid">
+    <div class="linux-item fade-in"><span class="linux-num">01</span><span class="linux-text">User administration, password policy management, file permissions (chmod/chown/ACL), sudoers configuration</span></div>
+    <div class="linux-item fade-in"><span class="linux-num">02</span><span class="linux-text">Linux boot process (BIOS/GRUB/systemd), runlevels, and safe shutdown procedures</span></div>
+    <div class="linux-item fade-in"><span class="linux-num">03</span><span class="linux-text">Managing local Linux users and groups — /etc/passwd, /etc/shadow, /etc/group</span></div>
+    <div class="linux-item fade-in"><span class="linux-num">04</span><span class="linux-text">Controlling services and daemons using systemctl/service, enabling/disabling at boot</span></div>
+    <div class="linux-item fade-in"><span class="linux-num">05</span><span class="linux-text">Disk partitioning (fdisk/parted), swap space management, Logical Volume Manager (LVM) — PV, VG, LV</span></div>
+    <div class="linux-item fade-in"><span class="linux-num">06</span><span class="linux-text">Configuring and securing OpenSSH, NFS server, vsftpd (FTP), Samba, and Apache httpd</span></div>
+    <div class="linux-item fade-in"><span class="linux-num">07</span><span class="linux-text">Crontab configuration and job scheduling using cron/at/anacron</span></div>
+    <div class="linux-item fade-in"><span class="linux-num">08</span><span class="linux-text">OS installation and package management using RPM and YUM/DNF</span></div>
+    <div class="linux-item fade-in"><span class="linux-num">09</span><span class="linux-text">Monitoring and managing Linux processes — top, ps, kill, nice, renice, jobs</span></div>
+    <div class="linux-item fade-in"><span class="linux-num">10</span><span class="linux-text">Linux network configuration — ifconfig/nmcli/ip, routing, DNS, firewall rules (firewalld/iptables)</span></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">// 03 WORK EXPERIENCE</div>
+  <h2 class="section-title">Professional Experience</h2>
+  <div class="exp-card fade-in">
+    <div class="exp-header">
+      <div class="exp-company">Capgemini Technologies</div>
+      <div class="exp-date">SEP 2023 – PRESENT</div>
+    </div>
+    <div class="exp-role">SOFTWARE ENGINEER · JAVA DEVELOPER · DEVOPS & CLOUD SUPPORT</div>
+    <ul class="exp-bullets">
+      <li>Developed and maintained scalable Java-based backend applications, ensuring 99%+ uptime in production environments</li>
+      <li>Managed Linux-based application servers — user access, service restarts, log monitoring, and OS-level troubleshooting on RHEL/CentOS</li>
+      <li>Automated deployments and data processing workflows using Shell scripts, reducing manual effort significantly</li>
+      <li>Monitored application health using Dynatrace; proactively identified bottlenecks and reduced Mean Time to Resolution (MTTR)</li>
+      <li>Analyzed and triaged production incidents using ELK Stack for centralized log aggregation and root-cause analysis</li>
+      <li>Designed and optimized complex SQL queries, improving data retrieval performance for critical business processes</li>
+      <li>Collaborated cross-functionally with DevOps, QA, and infrastructure teams to resolve incidents within SLA</li>
+      <li>Leveraged Azure services (App Services, Functions, Storage, Service Bus) for cloud-native deployments and automation</li>
+      <li>Participated in deployment activities, change management, and post-deployment validation per DevOps/ITIL processes</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">// 04 PROJECTS</div>
+  <h2 class="section-title">Personal Projects</h2>
+  <div class="projects-grid">
+
+    <div class="proj-card fade-in">
+      <div class="proj-num">01</div>
+      <span class="proj-status">✦ IN PROGRESS</span>
+      <div class="proj-title">Linux Server Hardening & Service Configuration Lab</div>
+      <p class="proj-desc">Built a multi-VM CentOS lab implementing enterprise-grade Linux administration — SSH hardening, NFS/Samba/Apache services, LVM storage management, password policies, firewall rules, and automated crontab jobs.</p>
+      <div class="proj-tags">
+        <span class="proj-tag">CentOS</span>
+        <span class="proj-tag">SSH</span>
+        <span class="proj-tag">LVM</span>
+        <span class="proj-tag">NFS</span>
+        <span class="proj-tag">Apache</span>
+        <span class="proj-tag">Samba</span>
+        <span class="proj-tag">crontab</span>
+      </div>
+    </div>
+
+    <div class="proj-card fade-in">
+      <div class="proj-num">02</div>
+      <span class="proj-status">✦ IN PROGRESS</span>
+      <div class="proj-title">CI/CD Pipeline with Jenkins + Docker + GitHub</div>
+      <p class="proj-desc">End-to-end CI/CD pipeline automating build, containerization, and deployment of a Java application. Multi-stage Jenkinsfile with Clone → Build → Docker Build → Deploy stages integrated with GitHub webhooks.</p>
+      <div class="proj-tags">
+        <span class="proj-tag">Jenkins</span>
+        <span class="proj-tag">Docker</span>
+        <span class="proj-tag">GitHub</span>
+        <span class="proj-tag">Java</span>
+        <span class="proj-tag">CI/CD</span>
+        <span class="proj-tag">Dockerfile</span>
+      </div>
+    </div>
+
+    <div class="proj-card fade-in">
+      <div class="proj-num">03</div>
+      <span class="proj-status">✦ IN PROGRESS</span>
+      <div class="proj-title">Automated Server Provisioning with Ansible</div>
+      <p class="proj-desc">Ansible playbooks for automated Linux server provisioning — user management, package installation, service configuration (Apache, vsftpd), and file deployment using Jinja2 templates across multiple managed nodes.</p>
+      <div class="proj-tags">
+        <span class="proj-tag">Ansible</span>
+        <span class="proj-tag">Jinja2</span>
+        <span class="proj-tag">YAML</span>
+        <span class="proj-tag">Apache</span>
+        <span class="proj-tag">vsftpd</span>
+        <span class="proj-tag">Linux</span>
+      </div>
+    </div>
+
+  </div>
+  <p style="margin-top:24px;font-family:var(--mono);font-size:12px;color:var(--muted);">// Projects will be updated with GitHub links upon completion</p>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">// 05 CERTIFICATIONS</div>
+  <h2 class="section-title">Credentials</h2>
+  <div class="certs-grid">
+    <div class="cert-card fade-in">
+      <div class="cert-logo">🔷</div>
+      <div class="cert-name">Microsoft Certified: Azure Developer Associate</div>
+      <div class="cert-issuer">MICROSOFT · AZ-204</div>
+    </div>
+    <div class="cert-card fade-in">
+      <div class="cert-logo">☕</div>
+      <div class="cert-name">Oracle Certified Professional — Java SE</div>
+      <div class="cert-issuer">ORACLE · OCP</div>
+    </div>
+    <div class="cert-card fade-in">
+      <div class="cert-logo">🟠</div>
+      <div class="cert-name">AWS Certified Cloud Practitioner</div>
+      <div class="cert-issuer">AMAZON WEB SERVICES · CLF-C01</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label" style="text-align:center;justify-content:center;">// 06 CONTACT</div>
+    <h2 class="section-title">Let's Connect</h2>
+    <p style="color:var(--muted);font-size:15px;line-height:1.8;">
+      Open to DevOps Engineer, Linux Administrator, Cloud Engineer, and Cloud Developer roles.
+      Feel free to reach out!
+    </p>
+    <div class="contact-email">basavalingappateganoor@gmail.com</div>
+    <div class="contact-phone">+91-9663299848 · India</div>
+    <a href="./Basavalingappa_DevOps_Linux_Cloud_Resume.docx" class="btn-primary" download style="display:inline-flex;">
+      ↓ Download Full Resume
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 BASAVALINGAPPA</span>
+  <span>DEVOPS · LINUX · CLOUD</span>
+</footer>
+
+<script>
+  // Intersection Observer for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
